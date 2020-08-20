@@ -1,6 +1,6 @@
 <template>
     <div v-if="!loading" class="row">
-        <div class="col-md-4" v-for="(item, id ) in items" :key="id">
+        <router-link :to="{ name : 'ItemDetails', params : { id : item.id}}" class="col-md-4" v-for="(item, id ) in items" :key="id">
           <div class="card mb-3">
             <!-- <img :src="item.photo" class="card-img-top" > -->
             <div class="card-body">
@@ -9,7 +9,7 @@
               <a href="#" @click.prevent="addCartItem(item)" class="btn btn-primary">+ Add</a>
             </div>
           </div>
-        </div>
+        </router-link>
     </div>
     <h1 v-else>Loading...</h1>
 </template>
@@ -31,11 +31,8 @@ export default {
       let self = this
       axios.get('http://localhost:3000/items')
       .then(res => {
-        setTimeout( function(){
-           self.items = res.data
-            self.loading = false
-        }, 2000);
-
+          self.items = res.data
+          self.loading = false
       });
     }
   },
