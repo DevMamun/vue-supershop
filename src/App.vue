@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navbar></navbar>
+    <navbar @search="search"></navbar>
     <br>
     <div class="container">
       <div class="row">
@@ -11,7 +11,7 @@
       </div>
       <div class="col-md-3">
         <div class="aside">
-          <cart :items="cart"></cart>
+          <cart @removeProduct="removeProduct" :items="cart"></cart>
         </div>
       </div>
     </div>
@@ -41,8 +41,16 @@ export default {
     this.items = data;
   },
   methods : {
+    search(keyward){
+        this.items = data.filter(item => {
+          return  item.title.toLowerCase().indexOf(keyward.toLowerCase()) !== -1
+        });
+    },
     addCartItem(item){
       this.cart.push(item);
+    },
+    removeProduct(id){
+      this.cart.splice(id, 1);
     }
   }
 }

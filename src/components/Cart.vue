@@ -13,8 +13,9 @@
         <span class="item-name">
           {{ item.title }}
         </span>
+        <span  @click="removeProduct(id)" class="btn btn-sm btn-danger">X</span>
         <span class="item-price float-right">
-          {{ item.price }}
+          ${{ item.price }}
         </span>
       </li>
       <hr>
@@ -40,7 +41,13 @@ export default {
       })
       return total
     }
+  },
+  methods : {
+    removeProduct(id){
+      this.$emit('removeProduct', id);
+    }
   }
+
 }
 </script>
 
