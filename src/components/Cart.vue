@@ -27,13 +27,17 @@
           ${{ totalPrice.toFixed(2) }}
         </span>
       </li>
+      <hr>
+      <button v-if="items.length > 0" @click="checkout" class="btn btn-success btn-block">Checkout</button>
     </ul>
 </template>
 
 <script>
 export default {
-  props : ['items'],
   computed : {
+    items(){
+      return this.$store.getters.getCart
+    },
     totalPrice(){
       var total = 0
       this.items.forEach(item => {
@@ -44,7 +48,12 @@ export default {
   },
   methods : {
     removeProduct(id){
-      this.$emit('removeProduct', id);
+      this.$store.commit('removeItem', id)
+    },
+    checkout(){
+      if(confirm('Are you sure want to checkout !!!')){
+        this.$store.commit('clearCart')
+      }
     }
   }
 

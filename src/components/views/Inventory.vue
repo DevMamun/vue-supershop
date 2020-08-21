@@ -20,18 +20,22 @@ export default {
   data(){
     return{
       loading : true,
-      items : []
+    }
+  },
+  computed : {
+    items(){
+      return this.$store.getters.getInventory
     }
   },
   methods : {
     addCartItem(item){
-      this.$emit('newItemAdded', item);
+      this.$store.dispatch('addToCart', item)
     },
     fatchInventory(){
       let self = this
       axios.get('http://localhost:3000/items')
       .then(res => {
-          self.items = res.data
+          self.$store.commit('setInventory', res.data)
           self.loading = false
       });
     }

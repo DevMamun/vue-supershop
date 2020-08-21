@@ -29,6 +29,9 @@ export default {
     };
   },
   methods: {
+    addCartItem(item){
+      this.$store.dispatch('addToCart', item)
+    },
     fatchInventory() {
       let self = this;
       axios
